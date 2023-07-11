@@ -1,9 +1,6 @@
 <script>
-    import SearchCard from "../components/SearchCard.svelte";
     import SearchField from "../components/SearchField.svelte";
     import { link } from "svelte-spa-router";
-
-    export let params = {};
 </script>
 
 <body class="w-80 flex flex-col mt-40">

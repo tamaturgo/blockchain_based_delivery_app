@@ -15,7 +15,7 @@
 </script>
 
 <body class="w-80 flex flex-col mt-40">
-    <a use:link={'/add'} class="text-sm self-start cursor-pointer hover:font-semibold">Adicionar</a>
+    <a href="/add" use:link class="text-sm self-start cursor-pointer hover:font-semibold">Adicionar</a>
     <img src="/src/assets/CRYPTOpost.svg" alt="Logo" class="my-6"/>
     <SearchField/>
 </body>

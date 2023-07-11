@@ -5,7 +5,8 @@
 
 <main class="mt-40 w-80 flex flex-col items-center">
     <a
-        use:link={"/"}
+        href="/"
+        use:link
         class="text-sm self-start cursor-pointer hover:font-semibold"
         >Cancelar</a
     >
