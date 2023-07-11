@@ -28,3 +28,13 @@ class Block:
                'Previous: {}'.format(self.previous_hash) + '\n' + \
                'Data: {}'.format(self.data) + '\n' + \
                'Timestamp: {}'.format(self.timestamp) + '\n'
+    def to_dict(self):
+        return {
+            'index': self.index,
+            'timestamp': self.timestamp,
+            'data': self.data,
+            'nonce': self.nonce,
+            'previous_hash': self.previous_hash,
+            'hash': self.hash
+        }
+    

@@ -10,13 +10,13 @@ service = Services(chain)
 
 @app.route('/delivery', methods=['POST'])
 def add_product_delivery():
-    product = request.form['product']
-    product_id = request.form['product_id']
-    sender = request.form['sender']
-    receiver = request.form['receiver']
-    amount = request.form['amount']
+    data = request.get_json()
+    product = data['product']
+    product_id = data['product_id']
+    sender = data['sender']
+    receiver = data['receiver']
+    amount = data['amount']
     new_block = service.add_product_delivery(product, product_id, sender, receiver, amount)
-
     return jsonify(new_block.to_dict()), 201
 
 @app.route('/delivery/<int:block_index>', methods=['GET'])
@@ -29,7 +29,8 @@ def get_product_delivery(block_index):
 
 @app.route('/delivery/<int:block_index>', methods=['PUT'])
 def update_product_delivery_status(block_index):
-    new_status = request.form['status']
+    new_status = request.args.get('status')
+    block_index = str(block_index)
     block = service.update_product_delivery_status(block_index, new_status)
     if block:
         return jsonify(block.to_dict()), 200
@@ -38,10 +39,10 @@ def update_product_delivery_status(block_index):
     
 @app.route('/delivery/search', methods=['GET'])
 def search_by_name():
-    product = request.form['product']
-    blocks = service.search_by_name(product)
-    if len(blocks) > 0:
-        return jsonify([block.to_dict() for block in blocks]), 200
+    product = request.args.get('product')
+    block = service.search_by_name(product)
+    if block:
+        return jsonify(block.to_dict()), 200
     else:
         return jsonify({'message': 'Bloco não encontrado.'}), 404
     

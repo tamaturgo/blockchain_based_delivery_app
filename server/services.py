@@ -54,7 +54,7 @@ class Services:
     def search_by_name(self, product):
         blocks_found = []
         for block in self.blockchain.chain:
-            search_for_string = " 'product': '{}'".format(product.lower())
+            search_for_string = "'product': '{}'".format(product.lower())
             if search_for_string in str(block.data).lower():
                 blocks_found.append(block)
         if len(blocks_found) > 0:
