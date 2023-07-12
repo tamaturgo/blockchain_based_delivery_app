@@ -29,10 +29,14 @@ class Block:
                'Data: {}'.format(self.data) + '\n' + \
                'Timestamp: {}'.format(self.timestamp) + '\n'
     def to_dict(self):
+        try:
+            data_eval = eval(str(self.data))
+        except:
+            data_eval = self.data
         return {
             'index': self.index,
             'timestamp': self.timestamp,
-            'data': self.data,
+            'data': data_eval,
             'nonce': self.nonce,
             'previous_hash': self.previous_hash,
             'hash': self.hash
