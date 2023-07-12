@@ -56,9 +56,7 @@ class Services:
             search_for_string = "'product': '{}'".format(product.lower())
             if search_for_string in str(block.data).lower():
                 blocks_found.append(block)
-        if blocks_found:
             return blocks_found
-        return None
 
     def search_by_sender(self, sender):
         blocks_found = []
