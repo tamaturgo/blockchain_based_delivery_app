@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { push } from "svelte-spa-router";
+    import { replace } from "svelte-spa-router";
     const placeholder: string = "Pesquisar encomenda";
     let field: any;
     let value: string = "";
 
     function handleSearch(e: KeyboardEvent) {
         if (e.key == "Enter") {
-            push("/search/" + value);
+            replace("/search/" + value);
         }
     }
 </script>
