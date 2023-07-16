@@ -21,10 +21,10 @@
     </div>
 
     <h2 class="font-semibold text-sm">Status</h2>
+    <dl class="flex flex-col list-disc items-start">
     {#each status as element}
-        <div class="flex items-start h-10 gap-2">
-            <div>{element[0]}</div>
-            <div>{element[1]}</div>
-        </div>
+            <dt class="capitalize">{element[0]}</dt>
+            <dd class="text-sm">{new Date(element[1]).toLocaleString()}</dd>
     {/each}
+    </dl>
 </main>
