@@ -6,7 +6,7 @@
 
     function handleSearch(e: KeyboardEvent) {
         if (e.key == "Enter") {
-            replace("/search/" + value);
+            replace("/search/" + value).then(() => document.location.reload());
         }
     }
 </script>
