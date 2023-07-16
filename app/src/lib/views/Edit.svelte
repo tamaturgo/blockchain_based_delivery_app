@@ -1,23 +1,21 @@
-
 <script>
     import EditCard from "../components/EditCard.svelte";
-import SearchCard from "../components/SearchCard.svelte";
+    import Logo from "../components/Logo.svelte";
     import SearchField from "../components/SearchField.svelte";
-    import { link } from "svelte-spa-router";
+    import { link, pop } from "svelte-spa-router";
 
     export let params = {};
 </script>
 
 <body class="w-80 flex flex-col mt-40">
-    <a
-        use:link
-        href="/"
+    <button
+        on:click={pop}
         class="text-sm self-start cursor-pointer hover:font-semibold"
-        >Cancelar</a
+        >Cancelar</button
     >
-    <img src="/src/assets/CRYPTOpost.svg" alt="Logo" class="my-6" />
+    <Logo />
     <SearchField />
-    <EditCard id={params.id}/>
+    <EditCard id={params.id} />
     <a
         href={"/edit/" + params.id}
         use:link
