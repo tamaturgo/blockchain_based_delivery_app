@@ -3,7 +3,7 @@ services:
   backend:
     build: server/.
     ports:
-      - "5001:5000"
+      - "80:80"
   frontend:
     build: app/.
     ports:
