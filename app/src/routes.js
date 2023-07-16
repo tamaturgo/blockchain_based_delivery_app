@@ -1,4 +1,4 @@
-const host = 'http://localhost:5001/';
+const host = 'http://localhost:80/';
 
 export const routes = {
     add: host + 'delivery',
