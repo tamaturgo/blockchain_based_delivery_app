@@ -12,7 +12,7 @@
         {id}
     </div>
     <input
-        on:input={event => updateDeliveryStatus.set(event.target.value)}
+        bind:value={$updateDeliveryStatus}
         minlength="3"
         placeholder="Novo status"
         class="border-background border-2 rounded-lg p-4 outline-none w-full h-full bg-[#FFF] text-black-text caret-blue-primary focus:border-blue-primary"

@@ -9,15 +9,9 @@
 
     export let params = {};
 
-    let status;
-
-    updateDeliveryStatus.subscribe((value) => {
-        status = value
-    })
-
     async function updateDelivery() {
         axios
-            .put(routes.update + params.id + '?status=' + status)
+            .put(routes.update + params.id + '?status=' + $updateDeliveryStatus)
             .then((res) => {
                 alert("Status atualizado com sucesso");
                 push("/search/" + res['data']['product']);
