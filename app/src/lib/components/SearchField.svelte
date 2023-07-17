@@ -1,33 +1,48 @@
 <script lang="ts">
+    import axios from "axios";
     import { replace } from "svelte-spa-router";
+    import { routes } from "../../routes";
+    import { searchedDelivery } from "../../stores.js";
     const placeholder: string = "Pesquisar encomenda";
-    let field: any;
     let value: string = "";
 
-    function handleSearch(e: KeyboardEvent) {
-        if (e.key == "Enter") {
-            replace("/search/" + value).then(() => document.location.reload());
-        }
+    function parseDelivery(data) {
+        let delivery = {
+            id: "",
+            name: "",
+            status: "",
+        };
+        delivery.status = data.map((block: Object) => [
+            block["data"]["status"],
+            block["timestamp"],
+        ]);
+        delivery.id = data[0]["data"]["product_id"];
+        delivery.name = data[0]["data"]["product"];
+        return delivery;
+    }
+
+    function handleSearch() {
+        axios
+            .get(routes.search + value)
+            .then((res) => ($searchedDelivery = parseDelivery(res["data"])))
+            .then((_) => replace("/search/" + $searchedDelivery.name))
+            .catch((_) =>
+                replace("/not-found").then((_) => ($searchedDelivery = {}))
+            );
     }
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-    on:click={() => field.focus()}
+<form
+    on:submit={handleSearch}
     class="w-full h-16 p-4 gap-4 bg-[#FFFFFF] rounded-lg flex items-center hover:cursor-text"
 >
-    <img
-        src="/src/assets/Search.svg"
-        on:keypress={handleSearch}
-        alt="Search icon"
-    />
+    <button type="submit">
+        <img src="/src/assets/Search.svg" alt="Search icon" />
+    </button>
     <input
         {placeholder}
-        bind:this={field}
+        minlength="2"
         bind:value
-        on:keypress={handleSearch}
         class="border-none outline-none w-full h-full bg-[#FFF] text-black-text caret-blue-primary"
     />
-</div>
+</form>

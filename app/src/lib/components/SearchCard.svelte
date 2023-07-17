@@ -1,7 +1,5 @@
 <script lang="ts">
-    export let id: string;
-    export let name: string;
-    export let status: [string];
+    import {searchedDelivery} from '../../stores'
 </script>
 
 <main
@@ -11,17 +9,17 @@
 
     <div class="flex flex-col items-start h-10 gap-2">
         <h2 class="font-semibold text-sm">ID do produto</h2>
-        {id}
+        {$searchedDelivery.id}
     </div>
 
     <div class="flex flex-col items-start h-10 gap-2">
         <h2 class="font-semibold text-sm">Nome do produto</h2>
-        <div class="capitalize">{name}</div>
+        <div class="capitalize">{$searchedDelivery.name}</div>
     </div>
 
     <dl class="flex flex-col list-disc items-start">
     <h2 class="font-semibold text-sm">Status</h2>
-    {#each status as element}
+    {#each $searchedDelivery.status as element}
             <dt class="capitalize">{element[0]}</dt>
             <dd class="text-sm">{new Date(element[1]).toLocaleString()}</dd>
     {/each}
