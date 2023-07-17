@@ -18,10 +18,9 @@
     async function updateDelivery() {
         axios
             .put(routes.update + params.id + '?status=' + status)
-            .then((_) => {
+            .then((res) => {
                 alert("Status atualizado com sucesso");
-
-                push("/search/" + params.id);
+                push("/search/" + res['data']['product']);
             })
             .catch((_) =>
                 alert("Não foi possível atualizar o status dessa encomenda")
@@ -37,7 +36,7 @@
     >
     <Logo />
     <SearchField />
-    <form on:submit={updateDelivery}>
+    <form class="flex flex-col" on:submit={updateDelivery}>
         <EditCard id={params.id}/>
         <button
             type="submit"
