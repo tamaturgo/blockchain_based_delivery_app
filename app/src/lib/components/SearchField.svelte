@@ -37,7 +37,7 @@
     class="w-full h-16 p-4 gap-4 bg-[#FFFFFF] rounded-lg flex items-center hover:cursor-text"
 >
     <button type="submit">
-        <img src="/src/assets/Search.svg" alt="Search icon" />
+        <img src="Search.svg" alt="Search icon" />
     </button>
     <input
         {placeholder}
