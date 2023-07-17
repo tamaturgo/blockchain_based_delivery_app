@@ -3,5 +3,9 @@ WORKDIR /app
 COPY . /app
 RUN npm install
 RUN npm run build
-EXPOSE 5173
-CMD [ "npm", "run", "dev"]
+
+FROM nginx:latest
+RUN rm /usr/share/nginx/html/*
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]
