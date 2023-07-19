@@ -31,15 +31,19 @@ def get_product_delivery(block_index):
         return jsonify({'message': 'Bloco não encontrado.'}), 404
 
 
-@app.route('/delivery/<int:block_index>', methods=['PUT'])
-def update_product_delivery_status(block_index):
+@app.route('/delivery/<string:block_product_name>', methods=['PUT'])
+def update_product_delivery_status(block_product_name):
     new_status = request.args.get('status')
-    block_index = str(block_index)
+    print (new_status + " " + block_product_name)
+    blocks = service.search_by_name(block_product_name)
+    product_id_pattern = re.compile(r"'product_id': '(.+?)'")
+    block_index = product_id_pattern.search(str(blocks[0].data)).group(1)
     block = service.update_product_delivery_status(block_index, new_status)
     if block:
         return jsonify(block.to_dict()), 200
     else:
         return jsonify({'message': 'Bloco não encontrado.'}), 404
+ 
 
 
 @app.route('/delivery/search', methods=['GET'])
@@ -48,9 +52,11 @@ def search_by_name():
     blocks = service.search_by_name(product)
     if len(blocks) > 0:
         return jsonify([block.to_dict() for block in blocks]), 200
+    blocks = service.search_by_product_id(product)
+    if len(blocks) > 0:
+        return jsonify([block.to_dict() for block in blocks]), 200
     else:
         return jsonify({'message': 'Bloco não encontrado.'}), 404
-
 
 @app.route('/delivery/sender/<string:sender>', methods=['GET'])
 def search_by_sender(sender):

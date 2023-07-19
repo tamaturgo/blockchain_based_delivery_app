@@ -2,6 +2,8 @@ from chain import Blockchain
 from block import Block
 import datetime
 import re
+import hashlib
+import random
 
 
 class Services:
@@ -11,7 +13,7 @@ class Services:
     def add_product_delivery(self, product, product_id, sender, receiver, amount):
         data = {
             'product': product,
-            'product_id': product_id,
+            'product_id': 0,
             'sender': sender,
             'receiver': receiver,
             'amount': amount,
@@ -19,6 +21,13 @@ class Services:
             'status': 'pending',
             'block_version': 1,
         }
+
+        # Generate product_id based on pattern (Product Name + Amout * 3 Alphanumeric Characters)
+        product_id_pattern = re.compile(r"([a-zA-Z]+)")
+        alphanumeric_random = ''.join(random.choice('0123456789ABCDEF') for i in range(3))
+        product_id = product_id_pattern.search(product).group(1).upper() + str(amount) + alphanumeric_random
+        data['product_id'] = product_id
+
         block = Block(len(self.blockchain.chain),
                       datetime.datetime.now(), data)
         self.blockchain.add_block(block)
@@ -92,10 +101,4 @@ class Services:
             search_for_string = "'product_id': '{}'".format(product_id.lower())
             if search_for_string in str(block.data).lower():
                 blocks_found.append(block)
-        if len(blocks_found) > 0:
-            most_recent_block = blocks_found[0]
-            for block in blocks_found:
-                if block.index > most_recent_block.index:
-                    most_recent_block = block
-            return most_recent_block
-        return None
+        return blocks_found

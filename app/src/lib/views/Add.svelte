@@ -7,10 +7,10 @@
 
     let delivery = {
         product: "",
-        product_id: "",
+        product_id: 0,
         sender: "",
         receiver: "",
-        amount: 0,
+        amount: 1,
     };
 
     async function addDelivery() {
