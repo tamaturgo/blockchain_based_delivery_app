@@ -7,6 +7,10 @@
 >
     <div class="text-xl font-semibold">Encomenda</div>
 
+    <div class="flex">
+        <div>{$searchedDelivery.sender} -> {$searchedDelivery.receiver}</div>
+    </div>
+
     <div class="flex flex-col items-start h-10 gap-2">
         <h2 class="font-semibold text-sm">ID do produto</h2>
         {$searchedDelivery.id}

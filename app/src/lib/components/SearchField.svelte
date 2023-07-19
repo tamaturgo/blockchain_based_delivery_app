@@ -11,6 +11,8 @@
             id: "",
             name: "",
             status: "",
+            sender: "",
+            receiver: "",
         };
         delivery.status = data.map((block: Object) => [
             block["data"]["status"],
@@ -18,6 +20,8 @@
         ]);
         delivery.id = data[0]["data"]["product_id"];
         delivery.name = data[0]["data"]["product"];
+        delivery.sender = data[0]["data"]["sender"]
+        delivery.receiver = data[0]["data"]["receiver"]
         return delivery;
     }
 
@@ -26,9 +30,6 @@
             .get(routes.search + value)
             .then((res) => ($searchedDelivery = parseDelivery(res["data"])))
             .then((_) => replace("/search/" + $searchedDelivery.name))
-            .catch((_) =>
-                replace("/not-found").then((_) => ($searchedDelivery = {}))
-            );
     }
 </script>
 
